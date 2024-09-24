@@ -79,6 +79,49 @@
         margin-bottom: 20px;
         text-align: center;
     }
+
+    .course-list {
+        max-width: 600px;
+        margin: 50px auto;
+        padding: 20px;
+        background-color: #f9f9f9;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .course-item {
+        margin-bottom: 20px;
+        padding: 15px;
+        background-color: #fff;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+    }
+
+    .course-item h3 {
+        margin: 0;
+        font-size: 18px;
+        color: #333;
+    }
+
+    .course-item p {
+        margin: 5px 0;
+        color: #555;
+        font-size: 14px;
+    }
+
+    .course-item hr {
+        border: none;
+        border-top: 1px solid #eee;
+        margin: 10px 0;
+    }
+
+    .empty-message {
+        text-align: center;
+        color: #f00;
+        font-size: 16px;
+        font-weight: bold;
+    }
 </style>
 <body>
     
