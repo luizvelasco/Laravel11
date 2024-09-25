@@ -21,9 +21,12 @@ class CourseController extends Controller
     }
 
     // Visualizar o Curso
-    public function show(){
+    public function show(Course $course){
+
+        //$course = Course::where('id', $request->course)->first(); //Recuperar com condição
+
         // Carregar a View
-        return view ('courses.show');
+        return view ('courses.show', ['course' => $course]);
     }
 
     // Carregar o formulário cadastrar novo curso

@@ -9,7 +9,7 @@ Route::get('/', function () {
 
 // Cursos
 Route::get('/index-course', [CourseController::class, 'index'])->name('courses.index'); // Listar os cursos
-Route::get('/show-course', [CourseController::class, 'show'])->name('courses.show');  // Visualizar o Curso
+Route::get('/show-course/{course}', [CourseController::class, 'show'])->name('courses.show');  // Visualizar o Curso
 Route::get('/create-course', [CourseController::class, 'create'])->name('courses.create'); // Carregar o formulário cadastrar novo curso
 Route::post('/store-course', [CourseController::class, 'store'])->name('courses.store'); // Cadastrar no banco de dados o novo curso
 Route::get('/edit-course', [CourseController::class, 'edit'])->name('courses.edit'); // Carrega o formulário editar curso
