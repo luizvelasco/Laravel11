@@ -7,6 +7,9 @@
     <title>Celke</title>
 </head>
 <style>
+    body {
+            background-color: #f8f9fa;
+        }
     form {
         max-width: 400px;
         margin: 50px auto;

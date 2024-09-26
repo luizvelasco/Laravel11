@@ -14,6 +14,7 @@
                 <p>Criado em: {{ \Carbon\Carbon::parse($course->created_at)->format('d/m/Y H:i:s') }}</p>
                 <p>Atualizado em: {{ \Carbon\Carbon::parse($course->updated_at)->format('d/m/Y H:i:s') }}</p>
                 <a href="{{ route('courses.show', ['course' => $course->id ])}}">Visualizar</a>
+                <a href="{{ route('courses.edit', ['course' => $course->id ])}}">Editar</a>
             </div>
         @empty
             <p class="empty-message">Nenhum curso encontrado!</p>
