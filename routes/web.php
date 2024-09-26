@@ -14,4 +14,4 @@ Route::get('/create-course', [CourseController::class, 'create'])->name('courses
 Route::post('/store-course', [CourseController::class, 'store'])->name('courses.store'); // Cadastrar no banco de dados o novo curso
 Route::get('/edit-course/{course}', [CourseController::class, 'edit'])->name('courses.edit'); // Carrega o formulário editar curso
 Route::put('/update-course/{course}', [CourseController::class, 'update'])->name('courses.update'); // Editar no banco de dados o curso
-Route::delete('/destroy-course', [CourseController::class, 'destroy'])->name('courses.destroy');  // Excluir o curso no banco de dados
+Route::delete('/destroy-course/{course}', [CourseController::class, 'destroy'])->name('courses.destroy');  // Excluir o curso no banco de dados

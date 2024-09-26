@@ -125,6 +125,39 @@
         font-size: 16px;
         font-weight: bold;
     }
+    .button-group a,
+.button-group form {
+    display: inline-block; /* Garante que os links e o formulário fiquem na mesma linha */
+    margin-right: 10px; /* Espaçamento entre os botões */
+}
+
+.inline-form {
+    display: inline-block; /* O formulário deve ser inline para o botão ficar ao lado dos links */
+}
+
+.delete-button {
+    background-color: #f44336; /* Cor vermelha para o botão de apagar */
+}
+
+.delete-button:hover {
+    background-color: #d32f2f; /* Cor mais escura ao passar o mouse */
+}
+button.link-button {
+    background-color: #007BFF; /* Mesma cor de fundo dos outros botões */
+    color: white;
+    border: none; /* Remove a borda */
+    padding: 10px 20px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: bold;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+}
+
+
+
 </style>
 <body>
     

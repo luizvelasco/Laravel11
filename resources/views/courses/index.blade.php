@@ -5,6 +5,12 @@
 
     <a href="{{ route('courses.create')}}" class="link-button">Cadastrar</a><br>
 
+    @if (session('success'))
+        <p class="success-message">
+            {{ session('success') }}
+        </p>
+    @endif
+
     {{-- Imprimir os registros --}}
     <div class="course-list">
         @forelse ($courses as $course)
@@ -13,8 +19,17 @@
                 <p>Nome: {{ $course->name }}</p>
                 <p>Criado em: {{ \Carbon\Carbon::parse($course->created_at)->format('d/m/Y H:i:s') }}</p>
                 <p>Atualizado em: {{ \Carbon\Carbon::parse($course->updated_at)->format('d/m/Y H:i:s') }}</p>
-                <a href="{{ route('courses.show', ['course' => $course->id ])}}">Visualizar</a>
-                <a href="{{ route('courses.edit', ['course' => $course->id ])}}">Editar</a>
+
+                <div class="button-group">
+                    <a href="{{ route('courses.show', ['course' => $course->id ])}}" class="link-button">Visualizar</a>
+                    <a href="{{ route('courses.edit', ['course' => $course->id ])}}" class="link-button">Editar</a>
+                    
+                    <form action="{{ route('courses.destroy', ['course' => $course->id]) }}" method="POST" class="inline-form">
+                        @csrf
+                        @method('delete')
+                        <button type="submit" class="link-button delete-button" onclick="return confirm('Tem certeza que deseja apagar esse registro?')">Apagar</button>
+                    </form>
+                </div>
             </div>
         @empty
             <p class="empty-message">Nenhum curso encontrado!</p>
@@ -24,4 +39,3 @@
     {{-- Imprimir a paginação --}}
     {{-- {{ $courses->links() }} --}}
 @endsection
-
