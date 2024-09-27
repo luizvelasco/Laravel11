@@ -17,6 +17,7 @@
             <div class="course-item">
                 <h3>Curso ID: {{ $course->id }}</h3>
                 <p>Nome: {{ $course->name }}</p>
+                <p>Preço: {{ 'R$ ' . number_format($course->price, 2, ',', '.') }}</p>
                 <p>Criado em: {{ \Carbon\Carbon::parse($course->created_at)->format('d/m/Y H:i:s') }}</p>
                 <p>Atualizado em: {{ \Carbon\Carbon::parse($course->updated_at)->format('d/m/Y H:i:s') }}</p>
 
