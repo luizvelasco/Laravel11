@@ -5,11 +5,7 @@
 
     <a href="{{ route('courses.create')}}" class="link-button">Cadastrar</a><br>
 
-    @if (session('success'))
-        <p class="success-message">
-            {{ session('success') }}
-        </p>
-    @endif
+    <x-alert />
 
     {{-- Imprimir os registros --}}
     <div class="course-list">

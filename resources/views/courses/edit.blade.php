@@ -6,14 +6,7 @@
     <a href="{{ route('courses.index')}}" class="link-button">Listar</a><br><br>
     <a href="{{ route('courses.show',['course' => $course->id]) }}" class="link-button">Visualizar</a><br>
 
-    
-    @if ($errors->any())
-        <span style="color: red">
-            @foreach ($errors->all() as $error)
-                {{ $error }}<br>
-            @endforeach
-        </span>
-    @endif
+    <x-alert />
 
     <form action="{{ route('courses.update', ['course' => $course->id]) }}" method="POST">
         @csrf

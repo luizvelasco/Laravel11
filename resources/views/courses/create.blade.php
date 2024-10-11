@@ -5,19 +5,7 @@
 
     <a href="{{ route('courses.index')}}" class="link-button">Listar</a><br><br>
 
-    @if (session('success'))
-            <p style="color: #082">
-                {{ session('success') }}
-            </p>
-    @endif
-
-    @if ($errors->any())
-        <span style="color: red">
-            @foreach ($errors->all() as $error)
-                {{ $error }}<br>
-            @endforeach
-        </span>
-    @endif
+    <x-alert />
 
     <form action="{{ route('courses.store')}}" method="POST">
         @csrf

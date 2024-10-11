@@ -6,11 +6,7 @@
     <a href="{{ route('courses.index')}}" class="link-button">Listar</a><br>
     <a href="{{ route('courses.edit', ['course' => $course->id])}}" class="link-button">Editar</a><br>
 
-    @if (session('success'))
-        <p style="color: #082">
-            {{ session('success') }}
-        </p>
-    @endif
+    <x-alert />
 
     <div class="course-list">
         <div class="course-item">
