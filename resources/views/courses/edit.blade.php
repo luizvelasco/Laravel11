@@ -3,12 +3,12 @@
 @section('content')
     <h2>Editar o Curso</h2>
 
-    <a href="{{ route('courses.index')}}" class="link-button">Listar</a><br><br>
-    <a href="{{ route('courses.show',['course' => $course->id]) }}" class="link-button">Visualizar</a><br>
+    <a href="{{ route('course.index')}}" class="link-button">Listar</a><br><br>
+    <a href="{{ route('course.show',['course' => $course->id]) }}" class="link-button">Visualizar</a><br>
 
     <x-alert />
 
-    <form action="{{ route('courses.update', ['course' => $course->id]) }}" method="POST">
+    <form action="{{ route('course.update', ['course' => $course->id]) }}" method="POST">
         @csrf
         @method('PUT')
 
