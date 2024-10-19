@@ -18,4 +18,7 @@ Route::put('/update-course/{course}', [CourseController::class, 'update'])->name
 Route::delete('/destroy-course/{course}', [CourseController::class, 'destroy'])->name('course.destroy');  // Excluir o curso no banco de dados
 
 // Aulas
-Route::get('/index-classe/{course}', [ClasseController::class, 'index'])->name('classe.index'); // Listar as aulas
+Route::get('/index-classe/{course}', [ClasseController::class, 'index'])->name('classe.index'); // Listar as classes
+Route::get('/show-classe/{classe}', [ClasseController::class, 'show'])->name('classe.show');  // Visualizar a classe
+Route::get('/create-classe/{course}', [ClasseController::class, 'create'])->name('classe.create'); // Carregar o formulário cadastrar nova aula
+Route::post('/store-classe', [ClasseController::class, 'store'])->name('classe.store'); // Cadastrar no banco de dados o nova aula

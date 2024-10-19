@@ -4,6 +4,7 @@
     <h2>Detalhes do Curso</h2>
 
     <a href="{{ route('course.index')}}" class="link-button">Listar</a><br>
+    <a href="{{ route('classe.index', ['course' => $course->id ])}}" class="link-button">Aulas</a>
     <a href="{{ route('course.edit', ['course' => $course->id])}}" class="link-button">Editar</a><br>
 
     <x-alert />

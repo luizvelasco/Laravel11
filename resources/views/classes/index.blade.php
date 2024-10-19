@@ -5,6 +5,7 @@
     <h2>Listar as aulas</h2>
 
     <a href="{{ route('course.index')}}" class="link-button">Cursos</a><br>
+    <a href="{{ route('classe.create', ['course' => $course->id]) }}" class="link-button">Cadastrar</a><br>
 
     <x-alert />
 
