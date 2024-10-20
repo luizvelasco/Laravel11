@@ -113,6 +113,13 @@ php artisan make:request NomeDoRequest
 php artisan make:request CourseRequest
 ```
 
+Criar componente
+```
+php artisan make:component nome --view
+```
+```
+php artisan make:component alert --view
+```
 
 ## Como usar o GitHub
 Baixar os arquivos do Git
