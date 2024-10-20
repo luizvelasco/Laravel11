@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\ClasseRequest;
 use App\Models\Classe;
 use App\Models\Course;
 use Illuminate\Http\Request;
@@ -29,8 +30,11 @@ class ClasseController extends Controller
     }
 
     // Cadastrar o banco de dados a nova aula
-    public function store(Request $request)
+    public function store(ClasseRequest $request)
     {
+
+        // Validar o formulário
+        $request->validated();
 
         // Recuperar a ultima ordem da aula do curso
         $lastOrderClasse = Classe::where('course_id', $request->course_id)

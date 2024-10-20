@@ -44,7 +44,7 @@
     <section class="welcome-section">
         <h1>Bem-vindo ao Laravel 11</h1>
         <p>Comece sua jornada de aprendizado ou explore nossos cursos.</p>
-        <a href="{{ route('courses.index') }}" class="btn btn-custom">Ver Cursos</a>
+        <a href="{{ route('course.index') }}" class="btn btn-custom">Ver Cursos</a>
     </section>
 
     <!-- Bootstrap JS -->
