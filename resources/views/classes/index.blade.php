@@ -19,6 +19,18 @@
                 <p>Criado em: {{ \Carbon\Carbon::parse($classe->created_at)->format('d/m/Y H:i:s') }}</p>
                 <p>Atualizado em: {{ \Carbon\Carbon::parse($classe->updated_at)->format('d/m/Y H:i:s') }}</p>
             </div>
+
+            <div class="button-group">
+                {{-- <a href="{{ route('classe.index', ['course' => $course->id ])}}" class="link-button">Aulas</a> --}}
+                {{-- <a href="{{ route('course.show', ['course' => $course->id ])}}" class="link-button">Visualizar</a> --}}
+                <a href="{{ route('classe.edit', ['classe' => $classe->id ])}}" class="link-button">Editar</a>
+                
+                {{-- <form action="{{ route('course.destroy', ['course' => $course->id]) }}" method="POST" class="inline-form">
+                    @csrf
+                    @method('delete')
+                    <button type="submit" class="link-button delete-button" onclick="return confirm('Tem certeza que deseja apagar esse registro?')">Apagar</button>
+                </form> --}}
+            </div>
         @empty
             <p class="empty-message">Nenhuma aula encontrada!</p>
         @endforelse

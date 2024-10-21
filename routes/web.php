@@ -22,3 +22,5 @@ Route::get('/index-classe/{course}', [ClasseController::class, 'index'])->name('
 Route::get('/show-classe/{classe}', [ClasseController::class, 'show'])->name('classe.show');  // Visualizar a classe
 Route::get('/create-classe/{course}', [ClasseController::class, 'create'])->name('classe.create'); // Carregar o formulário cadastrar nova aula
 Route::post('/store-classe', [ClasseController::class, 'store'])->name('classe.store'); // Cadastrar no banco de dados o nova aula
+Route::get('/edit-classe/{classe}', [ClasseController::class, 'edit'])->name('classe.edit'); // Carrega o formulário editar aula
+Route::put('/update-classe/{classe}', [ClasseController::class, 'update'])->name('classe.update'); // Editar no banco de dados a aula
