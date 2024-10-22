@@ -21,15 +21,14 @@
             </div>
 
             <div class="button-group">
-                {{-- <a href="{{ route('classe.index', ['course' => $course->id ])}}" class="link-button">Aulas</a> --}}
-                {{-- <a href="{{ route('course.show', ['course' => $course->id ])}}" class="link-button">Visualizar</a> --}}
+                <a href="{{ route('classe.show', ['classe' => $classe->id ])}}" class="link-button">Visualizar</a>
                 <a href="{{ route('classe.edit', ['classe' => $classe->id ])}}" class="link-button">Editar</a>
                 
-                {{-- <form action="{{ route('course.destroy', ['course' => $course->id]) }}" method="POST" class="inline-form">
+                <form action="{{ route('classe.destroy', ['classe' => $classe->id]) }}" method="POST" class="inline-form">
                     @csrf
                     @method('delete')
                     <button type="submit" class="link-button delete-button" onclick="return confirm('Tem certeza que deseja apagar esse registro?')">Apagar</button>
-                </form> --}}
+                </form>
             </div>
         @empty
             <p class="empty-message">Nenhuma aula encontrada!</p>

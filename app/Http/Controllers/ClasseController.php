@@ -75,4 +75,22 @@ class ClasseController extends Controller
         // Redirecionar o usuário
         return redirect()->route('classe.index', ['course' => $classe->course_id ])->with('success', 'Aula editada com sucesso!');
     }
+
+    // Visualizar a aula
+    public function show(Classe $classe){
+
+        // Carregar a View
+        return view ('classes.show', ['classe' => $classe]);
+    }
+
+    // Apagar a aula
+    public function destroy(Classe $classe)
+    {
+        // Excluir o registro do banco de dados
+        $classe->delete();
+
+        // Redirecionar o usuário, enviar a mensagem de sucesso
+        return redirect()->route('classe.index', ['course' => $classe->course_id])->with('success', 'Aula excluído com sucesso!');
+    }
+
 }
