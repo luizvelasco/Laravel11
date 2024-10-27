@@ -6,6 +6,7 @@ use App\Http\Requests\CourseRequest;
 use App\Models\Course;
 use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class CourseController extends Controller
 {
@@ -43,14 +44,30 @@ class CourseController extends Controller
         //Validar o formulário
         $request->validated();
 
-        // Cadastrar no banco de dados na tabela cursos os valores de todos os campos
-        $course = Course::create([
-            'name' => $request->name,
-            'price' => $request->price,
-        ]);
+        // Marca o ponto inicial de uma transação
+        DB::beginTransaction();
 
-        // Redirecionar o usuário, enviar mensagem de sucesso
-        return redirect()->route('course.show', ['course' => $course->id])->with('success', 'Curso cadastrado com sucesso');
+        try {
+
+            // Cadastrar no banco de dados na tabela cursos os valores de todos os campos
+            $course = Course::create([
+                'name' => $request->name,
+                'price' => $request->price,
+            ]);
+
+            // Operação é concluída com êxito
+            DB::commit();
+
+            // Redirecionar o usuário, enviar mensagem de sucesso
+            return redirect()->route('course.show', ['course' => $course->id])->with('success', 'Curso cadastrado com sucesso');
+        } catch (Exception $e) {
+            
+            // Operação não é concluída com êxito
+            DB::rollBack();
+
+            // Redirecionar o usuário, enviar a mensagem de erro
+            return back()->withInput()->with('error', 'Curso não cadastrado!');
+        }
     }
 
     // Carrega o formulário editar curso
@@ -66,14 +83,30 @@ class CourseController extends Controller
         //Validar o formulário
         $request->validated();
 
-        // Editar as informações do registro no banco de dados
-        $course->update([
-            'name' => $request->name,
-            'price' => $request->price
-        ]);
+        // Marca o ponto inicial de uma transação
+        DB::beginTransaction();
 
-        // Redirecionar
-        return redirect()->route('course.show', ['course' => $course->id])->with('success', 'Curso editado com sucesso');
+        try {
+
+            // Editar as informações do registro no banco de dados
+            $course->update([
+                'name' => $request->name,
+                'price' => $request->price
+            ]);
+
+             // Operação é concluída com êxito
+             DB::commit();
+
+            // Redirecionar
+            return redirect()->route('course.show', ['course' => $course->id])->with('success', 'Curso editado com sucesso');
+        } catch (Exception $e) {
+            
+            // Operação não é concluída com êxito
+            DB::rollBack();
+
+            // Redirecionar o usuário, enviar a mensagem de erro
+            return back()->withInput()->with('error', 'Curso não editado!');
+        }
     }
 
     // Excluir o curso no banco de dados

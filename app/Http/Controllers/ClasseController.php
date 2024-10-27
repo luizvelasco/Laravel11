@@ -8,6 +8,7 @@ use App\Models\Classe;
 use App\Models\Course;
 use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class ClasseController extends Controller
 {
@@ -37,21 +38,37 @@ class ClasseController extends Controller
         // Validar o formulário
         $request->validated();
 
-        // Recuperar a ultima ordem da aula do curso
-        $lastOrderClasse = Classe::where('course_id', $request->course_id)
-                ->orderBy('order_classe', 'DESC')
-                ->first();
+        // Marca o ponto inicial de uma transação
+        DB::beginTransaction();
 
-        // Cadastrar no banco de dados na tabela aulas
-        Classe::create([
-            'name' => $request->name,
-            'description' => $request->description,
-            'order_classe' => $lastOrderClasse ? $lastOrderClasse->order_classe + 1 : 1,
-            'course_id' => $request->course_id
-        ]);
+         try {
 
-        // Redirecionar o usuário, enviar a mensagem de sucesso
-        return redirect()->route('classe.index', ['course' => $request->course_id])->with('success', 'Aula cadastrada com sucesso');
+            // Recuperar a ultima ordem da aula do curso
+            $lastOrderClasse = Classe::where('course_id', $request->course_id)
+                    ->orderBy('order_classe', 'DESC')
+                    ->first();
+
+            // Cadastrar no banco de dados na tabela aulas
+            Classe::create([
+                'name' => $request->name,
+                'description' => $request->description,
+                'order_classe' => $lastOrderClasse ? $lastOrderClasse->order_classe + 1 : 1,
+                'course_id' => $request->course_id
+            ]);
+
+            // Operação é concluída com êxito
+            DB::commit();
+
+            // Redirecionar o usuário, enviar a mensagem de sucesso
+            return redirect()->route('classe.index', ['course' => $request->course_id])->with('success', 'Aula cadastrada com sucesso');
+        } catch (Exception $e) {
+            
+            // Operação não é concluída com êxito
+            DB::rollBack();
+
+            // Redirecionar o usuário, enviar a mensagem de erro
+            return back()->withInput()->with('error', 'Aula não cadastrada!');
+        }
     }
 
     //Carregar o formulário editar aula
@@ -67,14 +84,30 @@ class ClasseController extends Controller
         // Validar o formulário
         $request->validated();
 
-        // Editar as informações do registro no banco de dados
-        $classe->update([
-            'name' => $request->name,
-            'description' => $request->description
-        ]);
+        // Marca o ponto inicial de uma transação
+        DB::beginTransaction();
 
-        // Redirecionar o usuário
-        return redirect()->route('classe.index', ['course' => $classe->course_id ])->with('success', 'Aula editada com sucesso!');
+        try {
+
+            // Editar as informações do registro no banco de dados
+            $classe->update([
+                'name' => $request->name,
+                'description' => $request->description
+            ]);
+
+             // Operação é concluída com êxito
+             DB::commit();
+
+            // Redirecionar o usuário
+            return redirect()->route('classe.index', ['course' => $classe->course_id ])->with('success', 'Aula editada com sucesso!');
+        } catch (Exception $e) {
+            
+            // Operação não é concluída com êxito
+            DB::rollBack();
+
+            // Redirecionar o usuário, enviar a mensagem de erro
+            return back()->withInput()->with('error', 'Aula não editada!');
+        }
     }
 
     // Visualizar a aula
