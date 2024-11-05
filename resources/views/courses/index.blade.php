@@ -1,39 +1,68 @@
 @extends('layouts.admin')
 
 @section('content')
-    <h2>Listar Cursos</h2>
 
-    <a href="{{ route('course.create')}}" class="link-button">Cadastrar</a><br>
+<div class="container-fluid px-4">
+    <div class="mb-1 hstack gap-2">
+        <h2 class="mt-3">Curso</h2>
 
-    <x-alert />
-
-    {{-- Imprimir os registros --}}
-    <div class="course-list">
-        @forelse ($courses as $course)
-            <div class="course-item">
-                <h3>Curso ID: {{ $course->id }}</h3>
-                <p>Nome: {{ $course->name }}</p>
-                <p>Preço: {{ 'R$ ' . number_format($course->price, 2, ',', '.') }}</p>
-                <p>Criado em: {{ \Carbon\Carbon::parse($course->created_at)->format('d/m/Y H:i:s') }}</p>
-                <p>Atualizado em: {{ \Carbon\Carbon::parse($course->updated_at)->format('d/m/Y H:i:s') }}</p>
-
-                <div class="button-group">
-                    <a href="{{ route('classe.index', ['course' => $course->id ])}}" class="link-button">Aulas</a>
-                    <a href="{{ route('course.show', ['course' => $course->id ])}}" class="link-button">Visualizar</a>
-                    <a href="{{ route('course.edit', ['course' => $course->id ])}}" class="link-button">Editar</a>
-                    
-                    <form action="{{ route('course.destroy', ['course' => $course->id]) }}" method="POST" class="inline-form">
-                        @csrf
-                        @method('delete')
-                        <button type="submit" class="link-button delete-button" onclick="return confirm('Tem certeza que deseja apagar esse registro?')">Apagar</button>
-                    </form>
-                </div>
-            </div>
-        @empty
-            <p class="empty-message">Nenhum curso encontrado!</p>
-        @endforelse
+        <ol class="breadcrumb mb-3 mt-3 ms-auto">
+            <li class="breadcrumb-item">
+                <a href="#" class="text-decoration-none">Dashboard</a>
+            </li>
+            <li class="breadcrumb-item active">Cursos</li>
+        </ol>
     </div>
 
-    {{-- Imprimir a paginação --}}
-    {{-- {{ $courses->links() }} --}}
+    <div class="card mb-4">
+        <div class="card-header hstack gap-2">
+            <span>Listar</span>
+            <span class="ms-auto">
+                <a href="{{ route('course.create')}}" class="btn btn-success btn-sm">Cadastrar</a>
+            </span>
+        </div>
+        <div class="card-body">
+            <x-alert />
+            <table class="table table-striped table-hover table-bordered">
+                <thead>
+                    <tr>
+                        <th class="d-none d-sm-table-cell">ID</th>
+                        <th>Nome</th>
+                        <th class="d-none d-md-table-cell">Preço</th>
+                        <th class="text-center">Ações</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @forelse ($courses as $course)
+                        <tr>
+                            <th class="d-none d-sm-table-cell">{{ $course->id }}</th>
+                            <td>{{ $course->name }}</td>
+                            <td class="d-none d-md-table-cell">{{ 'R$ ' . number_format($course->price, 2, ',', '.') }}</td>
+                            <td class="d-md-flex flex-row justify-content-center">
+                                <a href="{{ route('classe.index', ['course' => $course->id ])}}" class="btn btn-info btn-sm me-1 mt-1 mt-md-0">Aulas</a>
+                                <a href="{{ route('course.show', ['course' => $course->id ])}}" class="btn btn-primary btn-sm me-1 mt-1 mt-md-0">Visualizar</a>
+                                <a href="{{ route('course.edit', ['course' => $course->id ])}}" class="btn btn-warning btn-sm me-1 mt-1 mt-md-0">Editar</a>
+                                
+                                <form action="{{ route('course.destroy', ['course' => $course->id]) }}" method="POST">
+                                    @csrf
+                                    @method('delete')
+                                    <button type="submit" class="btn btn-danger btn-sm me-1 mt-1 mt-md-0" onclick="return confirm('Tem certeza que deseja apagar esse registro?')">Apagar</button>
+                                </form>
+                            </td>
+                        </tr>
+                    @empty
+                    <div class="alert alert-danger" role="alert">
+                        Nenhum curso encontrado!
+                    </div>
+                        
+                    @endforelse
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+
+</div>
+{{-- Imprimir a paginação --}}
+{{-- {{ $courses->links() }} --}}
 @endsection
