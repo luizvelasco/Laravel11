@@ -1,4 +1,4 @@
-@extends('layouts.admin')
+{{-- @extends('layouts.admin')
 
 @section('content')
 
@@ -64,47 +64,87 @@
 
 
 </div>
-{{-- Imprimir a paginação --}}
-{{-- {{ $courses->links() }} --}}
-@endsection
+@endsection --}}
 
-
-
-{{-- @extends('layouts.admin')
+@extends('layouts.admin')
 
 @section('content')
+    <div class="container-fluid px-4">
+        <div class="mb-1 hstack gap-2">
+            <h2 class="mt-3">Aula</h2>
 
-    <h2>Listar as aulas</h2>
+            <ol class="breadcrumb mb-3 mt-3 ms-auto">
+                <li class="breadcrumb-item">
+                    <a href="#" class="text-decoration-none">Dashboard</a>
+                </li>
+                <li class="breadcrumb-item">
+                    <a href="{{ route('course.index') }}" class="text-decoration-none">Cursos</a>
+                </li>
+                <li class="breadcrumb-item active">Aulas</li>
+            </ol>
+        </div>
 
-    <a href="{{ route('course.index')}}" class="link-button">Cursos</a><br>
-    <a href="{{ route('classe.create', ['course' => $course->id]) }}" class="link-button">Cadastrar</a><br>
+        <div class="card mb-4">
 
-    <x-alert />
+            <div class="card-header hstack gap-2">
+                <span>Listar</span>
 
-    <div class="course-list">
-        @forelse ($classes as $classe)
-            <div class="course-item">
-                <p>Nome: {{ $classe->name }} </p>
-                <p>Ordem: {{ $classe->order_classe }} </p>
-                <p>Descrição: {{ $classe->description }} </p>
-                <p>Curso: {{ $classe->course->name }}</p> 
-                <p>Criado em: {{ \Carbon\Carbon::parse($classe->created_at)->format('d/m/Y H:i:s') }}</p>
-                <p>Atualizado em: {{ \Carbon\Carbon::parse($classe->updated_at)->format('d/m/Y H:i:s') }}</p>
+                <span class="ms-auto">
+                    <a href="{{ route('course.show', ['course' => $course->id]) }}" class="btn btn-primary btn-sm">Curso</a>
+                    <a href="{{ route('classe.create', ['course' => $course->id]) }}" class="btn btn-success btn-sm">Cadastrar</a>
+                </span>
             </div>
 
-            <div class="button-group">
-                <a href="{{ route('classe.show', ['classe' => $classe->id ])}}" class="link-button">Visualizar</a>
-                <a href="{{ route('classe.edit', ['classe' => $classe->id ])}}" class="link-button">Editar</a>
-                
-                <form action="{{ route('classe.destroy', ['classe' => $classe->id]) }}" method="POST" class="inline-form">
-                    @csrf
-                    @method('delete')
-                    <button type="submit" class="link-button delete-button" onclick="return confirm('Tem certeza que deseja apagar esse registro?')">Apagar</button>
-                </form>
+            <div class="card-body">
+
+                <x-alert />
+
+                <table class="table table-striped table-hover table-bordered">
+                    <thead>
+                        <tr>
+                            <th class="d-none d-sm-table-cell">ID</th>
+                            <th>Nome</th>
+                            <th class="d-none d-md-table-cell">Ordem</th>
+                            <th class="text-center">Ações</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+
+                        {{-- Imprimir os registros --}}
+                        @forelse ($classes as $classe)
+                            <tr>
+                                <th class="d-none d-sm-table-cell">{{ $classe->id }}</th>
+                                <td>{{ $classe->name }}</td>
+                                <td class="d-none d-md-table-cell">{{ $classe->order_classe }}
+                                </td>
+                                <td class="d-md-flex flex-row justify-content-center">
+
+                                    <a href="{{ route('classe.show', ['classe' => $classe->id]) }}"
+                                        class="btn btn-primary btn-sm me-1 mb-1 mb-md-0">Visualizar</a>
+
+                                    <a href="{{ route('classe.edit', ['classe' => $classe->id]) }}"
+                                        class="btn btn-warning btn-sm me-1 mb-1 mb-md-0">Editar</a>
+
+                                    <form action="{{ route('classe.destroy', ['classe' => $classe->id])}}" method="POST">
+                                        @csrf
+                                        @method('delete')
+                                        <button type="submit" class="btn btn-danger btn-sm me-1"
+                                            onclick="return confirm('Tem certeza que deseja apagar este registro?')">Apagar</button>
+                                    </form>
+                                </td>
+                            </tr>
+                        @empty
+                            <div class="alert alert-danger" role="alert">
+                                Nenhuma aula encontrada!
+                            </div>
+                        @endforelse
+
+                    </tbody>
+                </table>
+
             </div>
-        @empty
-            <p class="empty-message">Nenhuma aula encontrada!</p>
-        @endforelse
+        </div>
+
     </div>
-
-@endsection --}}
+@endsection
