@@ -1,3 +1,6 @@
+// Importar o framwork bootstrap
+import 'bootstrap';
+
 import axios from 'axios';
 window.axios = axios;
 
