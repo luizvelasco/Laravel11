@@ -23,17 +23,16 @@ class CourseRequest extends FormRequest
     {
         return [
             'name' => 'required',
-            'price' => 'required|numeric|:max:10'
+            'price' => 'required|max:10',
         ];
     }
 
     public function messages(): array
     {
         return [
-            'name.required' => 'Campo nome do curso obrigatório!',
-            'price.required' => 'Campo preço do curso obrigatório!',
+            'name.required' => 'Campo nome do curso é obrigatório!',
+            'price.required' => 'Campo preço do curso é obrigatório!',
             'price.max' => 'O preço só pode ter no máximo 8 números!',
-            'price.numeric' => 'O preço só pode ter números!',
         ];
     }
 }
