@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\UserRequest;
 use App\Models\User;
 use Exception;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 
@@ -148,7 +149,7 @@ class UserController extends Controller
      }
 
      // Editar no banco de dados a senha do usuário
-    public function updatePassword(UserRequest $request, User $user)
+    public function updatePassword(Request $request, User $user)
     {
 
         // Validar o formulário
