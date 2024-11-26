@@ -13,9 +13,15 @@
                                 <h3 class="text-center font-weight-light my-4">Área Restrita</h3>
                             </div>
                             <div class="card-body">
-                                <form>
+
+                                <x-alert />
+
+                                <form action="{{ route('login.process') }}" method="POST">
+                                    @csrf
+                                    @method('POST')
+
                                     <div class="form-floating mb-3">
-                                        <input class="form-control" name="email" id="email" type="email" placeholder="E-mail do usuário" />
+                                        <input class="form-control" name="email" id="email" type="email" placeholder="E-mail do usuário" value="{{ old('email') }}"/>
                                         <label for="email">E-mail</label>
                                     </div>
                                     <div class="form-floating mb-3">
@@ -31,6 +37,10 @@
                             <div class="card-footer text-center py-3">
                                 <div class="small">
                                     Precisa de uma conta?<a href="#" class="text-decoration-none">Inscrever-se</a>
+                                </div>
+                                <div class="small">
+                                    Usuário: luizvelasco@gmail.com<br>
+                                    Senha: 123456a
                                 </div>
                             </div>
                         </div>

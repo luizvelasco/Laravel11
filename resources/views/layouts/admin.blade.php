@@ -56,7 +56,7 @@
                             Cursos
                         </a>
 
-                        <a class="nav-link" href="#">
+                        <a class="nav-link" href="{{ route('login.index') }}">
                             <div class="sb-nav-link-icon"><i class="fa-solid fa-arrow-right-from-bracket"></i></div>
                             Sair
                         </a>
