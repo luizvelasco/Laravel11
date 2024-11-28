@@ -5,7 +5,9 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\LoginRequest;
 use Illuminate\Auth\Events\Validated;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+
 
 class LoginControler extends Controller
 {
@@ -43,5 +45,18 @@ class LoginControler extends Controller
         // Redirecionar o usuário, enviar a mensagem de sucesso
         return redirect()->route('login.index')->with('success', 'Deslogado com sucesso');
 
+    }
+
+    // Carregar o formulário cadastrar novo usuário
+    public function create()
+    {
+        // Carregar a view
+        return view ('login.create');
+    }
+
+    // Cadastrar no banco de dados o novo usuário
+    public function store (Request $request)
+    {
+        
     }
 }

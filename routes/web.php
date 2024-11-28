@@ -12,6 +12,9 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', [LoginControler::class, 'index'])->name('login.index');
 Route::post('/login', [LoginControler::class, 'loginProcess'])->name('login.process');
 Route::get('/logout', [LoginControler::class, 'destroy'])->name('login.destroy');
+Route::get('/create-user-login', [LoginControler::class, 'create'])->name('login.create-user');
+Route::post('/store-user-login', [LoginControler::class, 'store'])->name('login.store-user');
+
 
 // Rotas privadas
 Route::group(['middleware' => 'auth'], function(){
