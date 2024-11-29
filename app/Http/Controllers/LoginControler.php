@@ -4,10 +4,13 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\LoginRequest;
+use App\Http\Requests\LoginUserRequest;
+use App\Models\User;
+use Exception;
 use Illuminate\Auth\Events\Validated;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 
 class LoginControler extends Controller
 {
@@ -55,8 +58,44 @@ class LoginControler extends Controller
     }
 
     // Cadastrar no banco de dados o novo usuário
-    public function store (Request $request)
+    public function store (LoginUserRequest $request)
     {
+        // Validar o formulário
+        $request->validated();
+
+        // Marca o ponto inicial de uma transação
+       DB::beginTransaction();
+
+       try {
+
+            // Cadastrar no banco de dados na tabela usuários os valores de todos os campos
+            $user = User::create([
+                'name' => $request->name,
+                'email' => $request->email,
+                'password' => $request->password,
+            ]);
+
+            // Operação é concluída com êxito
+            DB::commit();
+
+            // Salvar log
+            Log::info('Usuário cadastrado.', ['user_id' => $user->id]);
+
+            // Redirecionar o usuário, enviar a mensagem de sucesso
+            return redirect()->route('login.index')->with('success', 'Usuário cadastrado com sucesso!');
         
+       } catch (Exception $e) {
+
+            // Operação não é concluída com êxito
+            DB::rollBack();
+
+            // Salvar log
+            Log::notice('Usuário não cadastrado.', ['error' => $e->getMessage()]);
+
+            // Redirecionar o usuário, enviar a mensagem de erro
+            return back()->withInput()->with('error', 'Usuário não cadastrado!');
+    }
+
+
     }
 }
