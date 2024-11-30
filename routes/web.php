@@ -4,6 +4,7 @@ use App\Http\Controllers\ClasseController;
 use App\Http\Controllers\CourseController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\LoginControler;
+use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -21,6 +22,24 @@ Route::group(['middleware' => 'auth'], function(){
 
     // Dashboard
     Route::get('/index-dashboard', [DashboardController::class, 'index'])->name('dashboard.index');
+
+    // Perfil
+    Route::get('/show-profile', [ProfileController::class, 'show'])->name('profile.show');
+    Route::get('/edit-profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::put('/update-profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::get('/edit-profile-password', [ProfileController::class, 'editPassword'])->name('profile.edit-password');
+    Route::put('/update-profile-password', [ProfileController::class, 'updatePassword'])->name('profile.update-password');
+
+    // Usuários
+    Route::get('/index-user', [UserController::class, 'index'])->name('user.index');
+    Route::get('/show-user/{user}', [UserController::class, 'show'])->name('user.show');
+    Route::get('/create-user', [UserController::class, 'create'])->name('user.create');
+    Route::post('/store-user', [UserController::class, 'store'])->name('user.store');
+    Route::get('/edit-user/{user}', [UserController::class, 'edit'])->name('user.edit');
+    Route::put('/update-user/{user}', [UserController::class, 'update'])->name('user.update');
+    Route::get('/edit-user-password/{user}', [UserController::class, 'editPassword'])->name('user.edit-password');
+    Route::put('/update-user-password/{user}', [UserController::class, 'updatePassword'])->name('user.update-password');
+    Route::delete('/destroy-user/{user}', [UserController::class, 'destroy'])->name('user.destroy');
 
     // Cursos
     Route::get('/index-course', [CourseController::class, 'index'])->name('course.index');
@@ -40,15 +59,6 @@ Route::group(['middleware' => 'auth'], function(){
     Route::put('/update-classe/{classe}', [ClasseController::class, 'update'])->name('classe.update');
     Route::delete('/destroy-classe/{classe}', [ClasseController::class, 'destroy'])->name('classe.destroy');
 
-    // Usuários
-    Route::get('/index-user', [UserController::class, 'index'])->name('user.index');
-    Route::get('/show-user/{user}', [UserController::class, 'show'])->name('user.show');
-    Route::get('/create-user', [UserController::class, 'create'])->name('user.create');
-    Route::post('/store-user', [UserController::class, 'store'])->name('user.store');
-    Route::get('/edit-user/{user}', [UserController::class, 'edit'])->name('user.edit');
-    Route::put('/update-user/{user}', [UserController::class, 'update'])->name('user.update');
-    Route::get('/edit-user-password/{user}', [UserController::class, 'editPassword'])->name('user.edit-password');
-    Route::put('/update-user-password/{user}', [UserController::class, 'updatePassword'])->name('user.update-password');
-    Route::delete('/destroy-user/{user}', [UserController::class, 'destroy'])->name('user.destroy');
+   
 
 });
