@@ -3,6 +3,7 @@
 use App\Http\Controllers\ClasseController;
 use App\Http\Controllers\CourseController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\ForgotPasswordControler;
 use App\Http\Controllers\LoginControler;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UserController;
@@ -15,6 +16,10 @@ Route::post('/login', [LoginControler::class, 'loginProcess'])->name('login.proc
 Route::get('/logout', [LoginControler::class, 'destroy'])->name('login.destroy');
 Route::get('/create-user-login', [LoginControler::class, 'create'])->name('login.create-user');
 Route::post('/store-user-login', [LoginControler::class, 'store'])->name('login.store-user');
+
+// Recuperar Senha
+Route::get('/forgot-password', [ForgotPasswordControler::class, 'showForgotPassword'])->name('forgot-password-show');
+Route::post('/forgot-password', [ForgotPasswordControler::class, 'submitForgotPassword'])->name('forgot-password-submit');
 
 
 // Rotas privadas
