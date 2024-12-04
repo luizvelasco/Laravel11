@@ -179,6 +179,26 @@ Configurar e-mail recuperar senha
 php artisan vendor:publish --tag=laravel-mail
 ```
 
+Instalar a dependência de permissao
+```
+composer require spatie/laravel-permission
+```
+
+Criar as migrations
+```
+php artisan vendor:publish --provider="Spatie\Permission\PermissionServiceProvider"
+```
+
+Limpar cache de configuração
+```
+php artisan config:clear
+```
+
+Executar as migrations
+```
+php artisan migrate
+```
+
 ## Como usar o GitHub
 Baixar os arquivos do Git
 ```
