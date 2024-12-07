@@ -23,7 +23,11 @@
 
                 <span class="ms-auto">
                     <a href="{{ route('course.show', ['course' => $course->id]) }}" class="btn btn-primary btn-sm">Curso</a>
-                    <a href="{{ route('classe.create', ['course' => $course->id]) }}" class="btn btn-success btn-sm"><i class="fa-regular fa-square-plus"></i> Cadastrar</a>
+
+                    @can('create-classe')
+                        <a href="{{ route('classe.create', ['course' => $course->id]) }}" class="btn btn-success btn-sm"><i class="fa-regular fa-square-plus"></i> Cadastrar</a>    
+                    @endcan
+                    
                 </span>
             </div>
 
@@ -31,7 +35,7 @@
 
                 <x-alert />
 
-                <table class="table table-striped table-hover table-bordered">
+                <table class="table table-striped table-hover">
                     <thead>
                         <tr>
                             <th class="d-none d-sm-table-cell">ID</th>
