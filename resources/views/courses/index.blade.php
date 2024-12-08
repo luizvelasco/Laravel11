@@ -52,7 +52,7 @@
                                 @endcan
                                 
                                 
-                                @can('create-curso')
+                                @can('destroy-course')
                                     <form action="{{ route('course.destroy', ['course' => $course->id]) }}" method="POST">
                                         @csrf
                                         @method('delete')

@@ -96,6 +96,9 @@ class LoginControler extends Controller
                 'password' => $request->password,
             ]);
 
+            // Cadatrar papel para o usuário
+            $user->assignRole("Aluno");
+
             // Operação é concluída com êxito
             DB::commit();
 

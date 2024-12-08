@@ -6,8 +6,10 @@ use App\Http\Requests\UserRequest;
 use App\Models\User;
 use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
+use Spatie\Permission\Models\Role;
 
 class UserController extends Controller
 {
@@ -17,7 +19,7 @@ class UserController extends Controller
 
         // Recuperar os registros do banco dados
         $users = User::orderBy('id', 'ASC')
-            ->paginate(2);
+            ->paginate(10);
 
         // Salvar log
         Log::info('Listar cursos.');
@@ -30,8 +32,11 @@ class UserController extends Controller
    public function create()
    {
 
-       // Carregar a VIEW
-       return view('users.create', ['menu' => 'users']);
+        // Recuperar os papeis
+        $role = Role::pluck('name')->all();
+
+        // Carregar a VIEW
+        return view('users.create', ['menu' => 'users', 'roles' => $role]);
    }
 
    // Cadastrar no banco de dados o novo usuário
@@ -46,12 +51,15 @@ class UserController extends Controller
 
        try {
 
-           // Cadastrar no banco de dados na tabela cursos os valores de todos os campos
-           $user = User::create([
-               'name' => $request->name,
-               'email' => $request->email,
-               'password' => $request->password,
-           ]);
+            // Cadastrar no banco de dados na tabela cursos os valores de todos os campos
+            $user = User::create([
+                'name' => $request->name,
+                'email' => $request->email,
+                'password' => $request->password,
+            ]);
+
+            // Cadastrar papel para o usuário
+            $user->assignRole($request->roles);
 
            // Operação é concluída com êxito
            DB::commit();
@@ -94,8 +102,11 @@ class UserController extends Controller
             // Excluir o registro do banco de dados
             $user->delete();
 
+            // Remove todos os papéis atribuídos ao usuário
+            $user->syncRoles([]);
+
             // Salvar log
-            Log::info('Usuário apagado.', ['user_id' => $user->id]);
+            Log::info('Usuário excluído.', ['user_id' => $user->id, 'action_user_id' => Auth::id()]);
 
             // Redirecionar o usuário, enviar a mensagem de sucesso
             return redirect()->route('user.index')->with('success', 'Usuário apagado com sucesso!');
@@ -126,6 +137,9 @@ class UserController extends Controller
                 'name' => $request->name,
                 'email' => $request->email,
              ]);
+
+            // Edtar papel para o usuário
+            $user->syncRoles($request->roles);
  
              // Operação é concluída com êxito
              DB::commit();
@@ -195,8 +209,14 @@ class UserController extends Controller
     public function edit(User $user)
     {
 
+        // Recuperar os papeis
+        $role = Role::pluck('name')->all();
+
+        // Recuperar o papel do usuário
+        $userRoles = $user->roles->pluck('name')->first();
+
         // Carregar a VIEW
-        return view('users.edit', ['menu' => 'users', 'user' => $user]);
+        return view('users.edit', ['menu' => 'users', 'user' => $user, 'roles' => $role, 'userRoles' => $userRoles]);
     }
 
     // Carregar o formulário editar usuário senha
