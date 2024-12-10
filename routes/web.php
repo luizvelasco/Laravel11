@@ -7,6 +7,7 @@ use App\Http\Controllers\ForgotPasswordControler;
 use App\Http\Controllers\LoginControler;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\RoleController;
 use Illuminate\Support\Facades\Route;
 
 // Rotas públicas
@@ -67,6 +68,7 @@ Route::group(['middleware' => 'auth'], function(){
     Route::put('/update-classe/{classe}', [ClasseController::class, 'update'])->name('classe.update')->middleware('permission:edit-classe');
     Route::delete('/destroy-classe/{classe}', [ClasseController::class, 'destroy'])->name('classe.destroy')->middleware('permission:destroy-classe');
 
-   
+    // Papéis
+    Route::get('/index-role', [RoleController::class, 'index'])->name('role.index')->middleware('permission:index-role');
 
 });
