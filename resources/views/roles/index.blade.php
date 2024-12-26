@@ -18,10 +18,9 @@
         <div class="card-header hstack gap-2">
             <span>Listar</span>
             <span class="ms-auto">
-                {{-- @can('create-curso')
-                    <a href="{{ route('course.create')}}" class="btn btn-success btn-sm"><i class="fa-regular     fa-square-plus"></i> Cadastrar</a>
-                @endcan --}}
                 
+                <a href="{{ route('role.create')}}" class="btn btn-success btn-sm"><i class="fa-regular     fa-square-plus"></i> Cadastrar</a>
+                                
             </span>
         </div>
         <div class="card-body">
@@ -39,12 +38,18 @@
                         <tr>
                             <th class="d-none d-sm-table-cell">{{ $role->id }}</th>
                             <td>{{ $role->name }}</td>
+                            {{-- <td class="d-md-flex flex-row justify-content-center">
+                                <a href="#" class="btn btn-info btn-sm me-1 mt-1 mt-md-0"><i class="fa-solid fa-list"></i> Permissões</a>  
+                            </td> --}}
                             <td class="d-md-flex flex-row justify-content-center">
-                                {{-- @can('update') --}}
-                                    <a href="#" class="btn btn-info btn-sm me-1 mt-1 mt-md-0"><i class="fa-solid fa-list"></i> Permissões</a>       
-                                {{-- @endcan --}}
+                                <a href="{{ route('role.show', ['role' => $role->id ])}}" class="btn btn-primary btn-sm me-1 mt-1 mt-md-0"><i class="fa-regular fa-eye"></i> Visualizar</a>
+                                <a href="{{ route('role.edit', ['role' => $role->id ])}}" class="btn btn-warning btn-sm me-1 mt-1 mt-md-0"><i class="fa-regular fa-pen-to-square"></i> Editar</a>
                                 
-                               
+                                <form action="{{ route('role.destroy', ['role' => $role->id]) }}" method="POST">
+                                    @csrf
+                                    @method('delete')
+                                    <button type="submit" class="btn btn-danger btn-sm me-1 mt-1 mt-md-0" onclick="return confirm('Tem certeza que deseja apagar esse registro?')"><i class="fa-regular fa-trash-can"></i> Apagar</button>
+                                </form>
                             </td>
                         </tr>
                     @empty
