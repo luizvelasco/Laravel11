@@ -125,4 +125,28 @@ class RoleController extends Controller
             return back()->withInput()->with('error', 'Papel não editado!');
         }
     }
+
+    // Excluir o papel do banco de dados
+    public function destroy(Role $role)
+    {
+
+        try {
+
+            // Excluir o registro do banco de dados
+            $role->delete();
+
+            // Salvar log
+            Log::info('Papel excluído.', ['role_id' => $role->id]);
+
+            // Redirecionar o usuário, enviar a mensagem de sucesso
+            return redirect()->route('role.index')->with('success', 'Papel apagado com sucesso!');
+        } catch (Exception $e) {
+
+            // Salvar log
+            Log::notice('Papel não apagado.', ['error' => $e->getMessage()]);
+
+            // Redirecionar o usuário, enviar a mensagem de sucesso
+            return redirect()->route('role.index')->with('error', 'Papel não apagado!');
+        }
+    }
 }
