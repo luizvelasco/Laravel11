@@ -18,7 +18,7 @@ class RoleController extends Controller
     {
 
         // Recuperar os registros do banco de dados
-        $roles = Role::orderBy('name')->paginate(40);
+        $roles = Role::orderBy('id')->paginate(40);
 
         // Carregar a view
         return view ('roles.index', ['menu' => 'roles', 'roles' => $roles]);
@@ -67,7 +67,7 @@ class RoleController extends Controller
             Log::info('Papel cadastrado.', ['role_id' => $role->id]);
 
             // Redirecionar o usuário, enviar a mensagem de sucesso
-            return redirect()->route('role.show', ['role' => $role->id])->with('success', 'Papel cadastrado com sucesso!');
+            return redirect()->route('role.index', ['role' => $role->id])->with('success', 'Papel cadastrado com sucesso!');
         } catch (Exception $e) {
 
             // Operação não é concluída com êxito
