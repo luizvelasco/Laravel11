@@ -13,13 +13,14 @@ class RoleSeeder extends Seeder
      */
     public function run(): void
     {
-        if(!Role::where('name', 'Super Admin')->first()) {
+
+        if (!Role::where('name', 'Super Admin')->first()) {
             Role::create([
                 'name' => 'Super Admin',
             ]);
         }
 
-        if(!Role::where('name', 'Admin')->first()) {
+        if (!Role::where('name', 'Admin')->first()) {
             $admin = Role::create([
                 'name' => 'Admin',
             ]);
@@ -27,8 +28,16 @@ class RoleSeeder extends Seeder
             $admin = Role::where('name', 'Admin')->first();
         }
 
-         // Cadastrar permissao para o papel
-         $admin->givePermissionTo([
+        // Cadastrar permissão para o papel
+        $admin->givePermissionTo([
+
+            'index-user',
+            'show-user',
+            'create-user',
+            'edit-user',
+            'edit-user-password',
+            'destroy-user',
+
             'index-course',
             'show-course',
             'create-course',
@@ -42,21 +51,27 @@ class RoleSeeder extends Seeder
             'destroy-classe',
 
             'index-role',
-            
+            'create-role',
+            'edit-role',
+            'destroy-role',
+
             'index-role-permission',
         ]);
 
-        if(!Role::where('name', 'Professor')->first()) {
+        if (!Role::where('name', 'Professor')->first()) {
             $teacher = Role::create([
                 'name' => 'Professor',
             ]);
-        }
-        else {
+        } else {
             $teacher = Role::where('name', 'Professor')->first();
         }
 
-         // Cadastrar permissao para o papel
-         $teacher->givePermissionTo([
+        // Cadastrar permissão para o papel
+        $teacher->givePermissionTo([
+
+            'index-user',
+            'show-user',
+            
             'index-course',
             'show-course',
             'create-course',
@@ -67,20 +82,23 @@ class RoleSeeder extends Seeder
             'show-classe',
             'create-classe',
             'edit-classe',
-            'destroy-classe'
+            'destroy-classe',
         ]);
 
-
-        if(!Role::where('name', 'Tutor')->first()) {
+        if (!Role::where('name', 'Tutor')->first()) {
             $tutor = Role::create([
                 'name' => 'Tutor',
             ]);
-        }else {
+        } else {
             $tutor = Role::where('name', 'Tutor')->first();
         }
 
-        // Cadastrar permissao para o papel
+        // Cadastrar permissão para o papel
         $tutor->givePermissionTo([
+
+            'index-user',
+            'show-user',
+            
             'index-course',
             'show-course',
             'edit-course',
@@ -88,14 +106,13 @@ class RoleSeeder extends Seeder
             'index-classe',
             'show-classe',
             'edit-classe',
-            
         ]);
 
-        if(!Role::where('name', 'Aluno')->first()) {
+        if (!Role::where('name', 'Aluno')->first()) {
             Role::create([
                 'name' => 'Aluno',
             ]);
-        }else {
+        } else {
             $admin = Role::where('name', 'Aluno')->first();
         }
     }
