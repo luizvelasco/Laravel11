@@ -37,7 +37,8 @@
                     <thead>
                         <tr>
                             <th class="d-none d-sm-table-cell">ID</th>
-                            <th>Nome</th>
+                            <th>Título</th>
+                            <th class="d-none d-sm-table-cell">Nome</th>
                             <th class="text-center">Ações</th>
                         </tr>
                     </thead>
@@ -49,8 +50,9 @@
 
                         <tr>
                             <td class="d-none d-sm-table-cell">{{ $permission->id }}</td>
-                            <td>{{ $permission->name }}</td>
-                            <td>
+                            <td>{{ $permission->title }}</td>
+                            <td class="d-none d-sm-table-cell">{{ $permission->name }}</td>
+                            <td class="text-center">
                                 @if (in_array($permission->id, $rolePermissions ?? [] ))
                                     <span class="badge text-bg-success">Liberado</span>
                                 @else
