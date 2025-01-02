@@ -25,9 +25,14 @@ Gerar a chave
 php artisan key:generate
 ```
 
-Executar as migration
+Executar as migrations
 ```
 php artisan migrate
+```
+
+Limpar o banco de dados completamente e recriar todas as tabelas:
+```
+php artisan migrate:fresh
 ```
 
 Executar as seed

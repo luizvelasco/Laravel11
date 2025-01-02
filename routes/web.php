@@ -43,7 +43,7 @@ Route::group(['middleware' => 'auth'], function(){
     // Usuários
     Route::get('/index-user', [UserController::class, 'index'])->name('user.index');
     Route::get('/show-user/{user}', [UserController::class, 'show'])->name('user.show');
-    Route::get('/create-user', [UserController::class, 'create'])->name('user.create');
+    Route::get('/create-user', [UserController::class, 'create'])->name('user.create')->middleware('permission:create-user');
     Route::post('/store-user', [UserController::class, 'store'])->name('user.store');
     Route::get('/edit-user/{user}', [UserController::class, 'edit'])->name('user.edit');
     Route::put('/update-user/{user}', [UserController::class, 'update'])->name('user.update');
@@ -79,5 +79,6 @@ Route::group(['middleware' => 'auth'], function(){
     
     // Permissão do papel
     Route::get('/index-role-permission/{role}', [RolePermissionController::class, 'index'])->name('role-permission.index')->middleware('permission:index-role-permission');
+    Route::get('/update-role-permission/{role}/{permission}', [RolePermissionController::class, 'update'])->name('role-permission.update')->middleware('permission:update-role-permission');
 
 });

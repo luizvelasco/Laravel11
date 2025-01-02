@@ -17,9 +17,11 @@
     <div class="card mb-4 border-light shadow">
         <div class="card-header hstack gap-2">
             <span>Listar</span>
-            <span class="ms-auto">
-                <a href="{{ route('user.create')}}" class="btn btn-success btn-sm"><i class="fa-regular fa-square-plus"></i> Cadastrar</a>
-            </span>
+            @can('create-user')
+                <span class="ms-auto">
+                    <a href="{{ route('user.create')}}" class="btn btn-success btn-sm"><i class="fa-regular fa-square-plus"></i> Cadastrar</a>
+                </span>
+            @endcan
         </div>
         <div class="card-body">
             <x-alert />
